@@ -1,0 +1,31 @@
+{
+  "name": "speed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supercoolcharles/Speed.git"
+  },
+  "author": "Stream12_Group3",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/supercoolcharles/Speed/issues"
+  },
+  "homepage": "https://github.com/supercoolcharles/Speed#readme",
+  "dependencies": {
+    "-": "^0.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "config": "^3.3.7",
+    "D": "^1.0.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.2",
+    "nodemon": "^2.0.16",
+    "validation": "^0.0.1"
+  }
+}
