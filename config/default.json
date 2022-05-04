@@ -1,3 +1,3 @@
 {
-    "mongoURI": ""
+    "mongoURI": "mongodb+srv://Stream12_Group3:<password>@speed.s4ott.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
   }
