@@ -1,32 +1,20 @@
 {
-  "name": "speed-1",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node app.js",
-    "app": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/supercoolcharles/Speed.git"
-  },
-  "author": "Zhuo Feng",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/supercoolcharles/Speed/issues"
-  },
-  "homepage": "https://github.com/supercoolcharles/Speed#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
-    "config": "^3.3.7",
     "express": "^4.18.1",
-    "mongoose": "^6.3.2",
+    "mongoose": "^6.3.3",
     "validation": "^0.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
+  },
+  "scripts": {
+  "build": "cd client && npm run build",
+  "install-client": "cd client && npm install",
+  "heroku-postbuild": "npm run install-client && npm run build",
+  "server": "nodemon server.js",
+  "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+  "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
   }
 }
