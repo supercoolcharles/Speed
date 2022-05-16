@@ -125,7 +125,7 @@ class ShowArticleDetails extends Component {
             </div>
 
             <div className="col-md-6">
-              <Link to={`/edit-book/${article._id}`} className="btn btn-outline-info btn-lg btn-block">
+              <Link to={`/edit-article/${article._id}`} className="btn btn-outline-info btn-lg btn-block">
                     Edit Article
               </Link>
               <br />
