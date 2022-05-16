@@ -114,3 +114,20 @@ dl dd {
   color: rgb(41, 41, 41);
   border-bottom: 2px solid rgb(0, 0, 0);
 }
+
+.articledetail{
+  position: fixed;
+  right: 320px;
+  top:230px;
+  background:#b5b5b5;
+  width: 490px;
+  height: 415px;
+  padding: 10px;
+  font-size: 13px;
+  overflow:'hidden';
+}
+
+.articledetail lii{
+  font-size: 16px;
+  font-weight: 700;
+}
