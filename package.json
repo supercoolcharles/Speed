@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    
     "app": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "build": "cd speed && npm run build",
+    "install-client": "cd speed && npm install",
+    "heroku-postbuild": "npm run install-speed && npm run build",
+    "server": "nodemon server.js",
+    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix speed\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix speed\""
   },
   "repository": {
     "type": "git",
@@ -25,6 +32,7 @@
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "D": "^1.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.3.3",
     "validation": "^0.0.1"
