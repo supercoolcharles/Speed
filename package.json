@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
 
     "build": "cd speed && npm run build",
-    "install-client": "cd speed && npm install",
+    "install-speed": "cd speed && npm install",
     "heroku-postbuild": "npm run install-speed && npm run build",
     "server": "nodemon server.js",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix speed\"",
