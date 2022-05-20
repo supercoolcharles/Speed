@@ -127,7 +127,29 @@ dl dd {
   overflow:'hidden';
 }
 
-.articledetail lii{
+.articledetail df{
   font-size: 16px;
   font-weight: 700;
+}
+ul{
+  font-family: sans-serif;
+}
+ul.navbar li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+ul.navbar {
+  background-color: #111;
+  padding: 0;
+}
+ul.navbar li a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 3px;
+  display: inline-block;
+}
+.active {
+  background-color: #0099FF;
 }
