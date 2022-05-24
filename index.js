@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 var cors = require('cors');
 const articles = require('./routes/api/articles');
 const app = express();
+require("dotenv").config({ path: "./.env" });
 
 connectDB();
 
@@ -13,10 +14,17 @@ app.use(express.static("build"));
 
 const path = require("path");
 
-app.use(express.static(path.resolve(__dirname, "./speed/build")));
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "./speed/build", "index.html"));
-});
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static(path.join(__dirname, '/client/build')))
+
+  app.get("*",(req, res) => {
+      res.sendFile(path.join(__dirname, "client","build","index.html"));
+  });
+}else{
+  app.get("/", (req, res) => {
+      res.send("Api running");
+  });
+}
 
 const port = process.env.PORT || 8082;
 
