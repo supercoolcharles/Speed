@@ -3,7 +3,7 @@ const connectDB = require('./config/db');
 var cors = require('cors');
 const articles = require('./routes/api/articles');
 const app = express();
-require("dotenv").config({ path: "./.env" });
+require("dotenv").config({ path: "./config.env" });
 
 connectDB();
 

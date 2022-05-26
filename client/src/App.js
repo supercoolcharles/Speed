@@ -10,6 +10,7 @@ import NotFound from './components/NotFound';
 import TDD from './components/ArticleList/TDDlist';
 import MOD from './components/ArticleList/MODlist';
 import Center from './components/Center';
+import Login from './components/ArticleList/Login';
 
 class App extends Component {
   render() {
@@ -25,7 +26,10 @@ class App extends Component {
           <Route path='/create-article' element={<CreateArticle />} />
           <Route path='/edit-article/:id' element={<UpdateArticleInfo />} />
           <Route path='/show-article/:id' element={<ShowArticleDetails />} />
-          <Route path='/center' element={<Center />} />
+          <Route path='/center' element={<AuthComponent>
+              <Center></Center>
+            </AuthComponent>} />
+          <Route path='/center/login' element={<Login />} />
           <Route path='/' element={<Navigate to="/articlelist" />} />
           <Route path='*' element={<NotFound />} />
           </Routes>
@@ -33,6 +37,11 @@ class App extends Component {
       </Router>
     );
   }
+}
+
+function AuthComponent({children}){
+  const isLogin = localStorage.getItem("token")
+  return isLogin?children:<Navigate to="Login"/>;
 }
 
 export default App;
