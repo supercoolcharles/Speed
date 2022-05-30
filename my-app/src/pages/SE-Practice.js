@@ -1,7 +1,7 @@
 import Styles from "../components/tablestyle.js";
 import Table from "../components/evidencetable.js";
 import Dropdown from "../components/Dropdown.js";
-import {list} from "../service/service.js";
+import {list, searchhistory} from "../service/service.js";
 import { Component } from "react";
 
 
@@ -13,6 +13,7 @@ class SEPractice extends Component {
     this.state = {
         search: localStorage.getItem('search') || '',
         articles: [],
+        searchlist: [],
         tablecolumnsOrg: [
             {
                 Header: 'Title',
@@ -99,19 +100,37 @@ class SEPractice extends Component {
 
  load() {
      localStorage.setItem('search', this.state.search)
-    list({search: this.state.search}).then(rs => {
-        this.setState({articles: rs.data})
-    });
+     setTimeout(() => {
+        list({search: this.state.search}).then(rs => {
+            this.setState({articles: rs.data});
+        });
+        setTimeout(() => {
+            searchhistory().then(rs => {
+                this.setState({searchlist: rs.data});
+            })
+        }, 500)
+     }, 100)
  }
 
  changeSearch(e) {
-     this.setState({search: e.target.value})
+     this.setState({search: e.target.value});
+ }
+
+ fillSearch(e) {
+    this.setState({search: e.target.value});
+    this.load();
  }
 
  render() {
      return (
         <div>
         <h2>List of SE Practice</h2>
+        <span>Search History </span>
+        <select onChange={(e) => this.fillSearch(e)} style={{minWidth: '100px'}}>
+            <option value=""></option>
+            {this.state.searchlist.map(item => <option value={item.search}>{item.search}</option>)}
+        </select>
+        <span> </span>
         <input placeholder="Please input Search" value={this.state.search} onChange={(e) => this.changeSearch(e)}/><button onClick={() => this.load()}>Search</button>
         <Styles>
             {this.state.tablecolumnsOrg.map(item => <span>{item.show ? <input type="checkbox" checked name={item.accessor} onChange={()=>this.toggleHead(item.accessor)} /> : <input type="checkbox"  name={item.accessor} onChange={()=>this.toggleHead(item.accessor)} />}{item.Header+' '}</span>)}

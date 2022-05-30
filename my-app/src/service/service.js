@@ -42,3 +42,8 @@ export async function save(params) {
     let rs = await post("save", params);
     return rs;
 }
+
+export async function searchhistory() {
+    let rs = await get("searchhistory", {});
+    return rs;
+}

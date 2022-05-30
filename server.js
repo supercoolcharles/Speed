@@ -27,6 +27,25 @@ app.get("/list", function(request, response) {
   let search = request.query.search || '';
   let orderby = request.query.orderby || 'title';
   let ordertype = (request.query.ordertype || '') == 'desc' ? '-' : '';
+  // save history
+  if(search) {
+    setTimeout(() => {
+      var query = SearchHistory.findOne({search: search}).
+      limit(1).
+      exec((err, item) => {
+        if(!item) {
+          item = new SearchHistory({
+            search: search, cretime: new Date().getTime()
+          });
+          item.save().then(() => {
+            console.log('save history');
+          }).catch(rs => {
+            console.log('error: save history ', rs);
+          })
+        }
+      });
+    }, 24)
+  }
   var query = Articles.where({title: new RegExp(search)}).
   limit(999).
   sort(ordertype + orderby).
@@ -152,6 +171,15 @@ app.post("/remove", function(request, response) {
   response.send("success: remove");
 })
 
+app.get("/searchhistory", function(request, response) {
+  var query = SearchHistory.find().limit(999).
+  sort('-cretime').
+  exec((err, item) => {
+    if (err) return handleError(err);
+    response.send(item);
+  })
+})
+
 app.get("*", function (request, response) {
   response.sendFile(path.resolve(__dirname, "./my-app/build", "index.html"));
 });
@@ -177,6 +205,10 @@ mongoose
 const Articles = mongoose.model('articles', new mongoose.Schema({
   id: String, title: String, authors: String, source: String, pubyear: String, doi: String, status: String, retrytimes: Number, cretime: Number, evidence: String, claim: String
 }));
+
+const SearchHistory = mongoose.model('searchhistory', new mongoose.Schema({
+  search: String, cretime: Number
+}))
 
 const server = app.listen(port, () =>
   console.log(`Server is running on port ${port}`)
