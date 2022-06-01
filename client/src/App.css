@@ -117,10 +117,10 @@ dl dd {
 
 .articledetail{
   position: fixed;
-  right: 320px;
+  right: 520px;
   top:230px;
   background:#b5b5b5;
-  width: 490px;
+  width: 290px;
   height: 415px;
   padding: 10px;
   font-size: 13px;
@@ -152,4 +152,16 @@ ul.navbar li a {
 }
 .active {
   background-color: #0099FF;
+}
+
+.searchhistory{
+  position: fixed;
+  right: 310px;
+  top:230px;
+  background:#b5b5b5;
+  width: 200px;
+  height: 415px;
+  padding: 10px;
+  font-size: 13px;
+  overflow:'hidden';
 }

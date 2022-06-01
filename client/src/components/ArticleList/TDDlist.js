@@ -11,6 +11,7 @@ export default class TDDlist extends Component {
     this.state = {
         articles: [],
         backarticles: [],
+        list:[],
 
         title: '',
         author:'',
@@ -49,7 +50,16 @@ export default class TDDlist extends Component {
                     <div className="list" style={{height:'415px',width:"480px",backgroundColor:'#b5b5b5',overflow:'hidden'}}>
                             {/* {articleList} */}
                             <div className="content">
-                            <input onInput={this.handleInput}/>
+                            <input onInput={this.handleInput} onChange={(evt)=>{
+                                    this.setState({
+                                        text:evt.target.value
+                                    })
+                                }}/>
+                                <button className="add" onClick={()=>{
+                                    this.setState({
+                                        list:[...this.state.list,this.state.text]
+                                    })
+                                }}>add</button>
                                 {
                                 articles.map((article, index)=>
                                         <FilmItem key ={index} {...article}
@@ -117,6 +127,23 @@ export default class TDDlist extends Component {
                     pages={this.state.pages}
                     title={this.state.title}
                     author={this.state.author}></FilmDetail>
+                    <div className="searchhistory">
+                                    <ul>
+                                        {
+                                            this.state.list.map( (item,index)=>
+                                            <li key={item}>{item}
+                                            <button className="del" onClick={()=>{
+                                                var newlist = [...this.state.list]
+                                                newlist.splice(index,1)
+                                                this.setState({
+                                                    list:newlist
+                                                })
+                                            }}>del</button>
+                                            </li>    
+                                            )
+                                        }
+                                    </ul>
+                                </div>
                 {/* <div>---</div> */}
                 {/* <hr/> */}
                 </div>
