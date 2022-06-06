@@ -1,4 +1,4 @@
 {
-    "mongoURI":
-      "mongodb+srv://xmb0947:6014281121As@cluster0.3prgl.mongodb.net/herokuapp?retryWrites=true&w=majority"
+    "mongoURI": 
+    "mongodb+srv://Stream12_Group3:Stream12_Group3@speed.s4ott.mongodb.net/speed?retryWrites=true&w=majority"
   }
