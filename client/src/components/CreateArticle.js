@@ -10,12 +10,13 @@ class CreateArticle extends Component {
     this.state = {
       title: '',
       author:'',
-      journal_name:'',
+      source:'',
       published_date:'',
-      volume:'',
-      number:'',
-      pages:'',
-      DOI:''
+      claim:'',
+      evidence:'',
+      status:'',
+      DOI:'',
+      types:''
     };
   }
 
@@ -29,12 +30,13 @@ class CreateArticle extends Component {
     const data = {
       title: this.state.title,
       author: this.state.author,
-      journal_name: this.state.journal_name,
+      source: this.state.source,
       published_date: this.state.published_date,
-      volume: this.state.volume,
-      number: this.state.number,
-      pages: this.state.pages,
-      DOI: this.state.DOI
+      claim: this.state.claim,
+      evidence: this.state.evidence,
+      status: this.state.status,
+      DOI: this.state.DOI,
+      types:this.state.types
     };
 
     axios
@@ -43,12 +45,13 @@ class CreateArticle extends Component {
         this.setState({
             title: '',
             author:'',
-            journal_name:'',
+            source:'',
             published_date:'',
-            volume:'',
-            number:'',
-            pages:'',
-            DOI:''
+            claim:'',
+            evidence:'',
+            status:'',
+            DOI:'',
+            types:''
         })
         this.props.history.push('/');
       })
@@ -78,7 +81,7 @@ class CreateArticle extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='Title of the CreateArticle'
+                    placeholder='Title of the Article'
                     name='title'
                     className='form-control'
                     value={this.state.title}
@@ -101,10 +104,10 @@ class CreateArticle extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='journal name of this Article'
-                    name='journal_name'
+                    placeholder='source of this Article'
+                    name='source'
                     className='form-control'
-                    value={this.state.journal_name}
+                    value={this.state.source}
                     onChange={this.onChange}
                   />
                 </div>
@@ -122,40 +125,50 @@ class CreateArticle extends Component {
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='volume of this Book'
-                    name='volume'
+                    placeholder='claim'
+                    name='claim'
                     className='form-control'
-                    value={this.state.volume}
+                    value={this.state.claim}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='number of this Book'
-                    name='number'
+                    placeholder='evidence'
+                    name='evidence'
                     className='form-control'
-                    value={this.state.number}
+                    value={this.state.evidence}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='pages of this Book'
-                    name='pages'
+                    placeholder='status of this Book'
+                    name='status'
                     className='form-control'
-                    value={this.state.pages}
+                    value={this.state.status}
                     onChange={this.onChange}
                   />
                 </div>
                 <div className='form-group'>
                   <input
                     type='text'
-                    placeholder='DOI of this Book'
+                    placeholder='DOI of this Article'
                     name='DOI'
                     className='form-control'
                     value={this.state.DOI}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className='form-group'>
+                  <input
+                    type='text'
+                    placeholder='types of this Article'
+                    name='types'
+                    className='form-control'
+                    value={this.state.types}
                     onChange={this.onChange}
                   />
                 </div>

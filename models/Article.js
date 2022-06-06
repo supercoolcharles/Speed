@@ -11,23 +11,23 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  journal_name: {
+  source: {
     type: String,
     required: true
   },
   published_date: {
     type: Date,
-    required: true
+    default: Date.now
   },
-  volume: {
+  claim: {
     type: String,
     required: true
   },
-  number: {
+  evidence: {
     type: String,
     required: true
   },
-  pages: {
+  status: {
     type: String,
     required: true
   },
@@ -35,9 +35,9 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  updated_date: {
-    type: Date,
-    default: Date.now
+  types: {
+    type: String,
+    required: true
   }
 });
 

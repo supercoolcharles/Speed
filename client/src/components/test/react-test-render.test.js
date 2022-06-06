@@ -10,5 +10,37 @@ describe("react-test-render",function(){
         expect(render.getRenderOutput().props.children.props.children[0]
         .props.children[0].props.children[1].props.children).toBe("Articles List")
     })
+
+    it("delete",function(){
+        const app = ReactTestUtil.renderIntoDocument(<App/>)
+        let todoitems = ReactTestUtil.scryRenderedDOMComponentsWithTag(app,"li")
+        console.log(todoitems.length)
+
+        let detelteButton = todoitems[0].querySelector("button")
+
+        ReactTestUtil.Simulate.click(detelteButton)
+
+        let todoitemsAfterClick = ReactTestUtil.scryRenderedDOMComponentsWithTag(app,"li")
+
+        expect(todoitems.length-1).toBe(todoitemsAfterClick.length)
+    })
+
+    it("add",function(){
+        const app = ReactTestUtil.renderIntoDocument(<App/>)
+        let todoitems = ReactTestUtil.scryRenderedDOMComponentsWithTag(app,"li")
+        console.log(todoitems.length)
+
+
+        let addInput = ReactTestUtil.scryRenderedDOMComponentsWithTag(app,"input")
+        addInput.value = "kerwinaaaaaa"
+        let addButton = ReactTestUtil.findRenderedDOMComponentWithClass(app,"add")
+
+        ReactTestUtil.Simulate.click(addButton)
+
+        let todoitemsAfterClick = ReactTestUtil.scryRenderedDOMComponentsWithTag(app,"li")
+
+        expect(todoitemsAfterClick.length).toBe(todoitems.length+1)
+
+    })
 })
 

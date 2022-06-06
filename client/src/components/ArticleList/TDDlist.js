@@ -11,16 +11,17 @@ export default class TDDlist extends Component {
     this.state = {
         articles: [],
         backarticles: [],
-        list:[],
+        list:["111","222","333"],
 
         title: '',
         author:'',
-        DOI:"",
-        number:"",
-        journal_name:"",
-        published_date:"",
-        volume:"",
-        pages:""
+        source:'',
+        published_date:'',
+        claim:'',
+        evidence:'',
+        status:'',
+        DOI:'',
+        types:''
     };
   }
 
@@ -47,7 +48,8 @@ export default class TDDlist extends Component {
             <div>
                 <div>
                     {/* <input onInput={this.handleInput}/> */}
-                    <div className="list" style={{height:'415px',width:"480px",backgroundColor:'#b5b5b5',overflow:'hidden'}}>
+                    <div className="list" style={{height:'415px',width:"480px",backgroundColor:'#b5b5b5',overflow:'hidden'}}
+                    onLoad={this.typeoption}>
                             {/* {articleList} */}
                             <div className="content">
                             <input onInput={this.handleInput} onChange={(evt)=>{
@@ -66,19 +68,19 @@ export default class TDDlist extends Component {
                                         onEvent={(value)=>{
                                             
                                             this.setState({
-                                                DOI:value
+                                                title:value
                                             })
                                         }}
                                         onEvent2={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                number:value
+                                                author:value
                                             })
                                         }}
                                         onEvent3={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                journal_name:value
+                                                source:value
                                             })
                                         }}
                                         onEvent4={(value)=>{
@@ -90,25 +92,30 @@ export default class TDDlist extends Component {
                                         onEvent5={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                volume:value
+                                                claim:value
                                             })
                                         }}
                                         onEvent6={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                pages:value
+                                                evidence:value
                                             })
                                         }}
                                         onEvent7={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                title:value
+                                                status:value
                                             })
                                         }}
                                         onEvent8={(value)=>{
                                             // console.log("CtoP",value)
                                             this.setState({
-                                                author:value
+                                                DOI:value
+                                            })
+                                        }}onEvent9={(value)=>{
+                                            // console.log("CtoP",value)
+                                            this.setState({
+                                                types:value
                                             })
                                         }}></FilmItem>
                                         // <dl key={index}>
@@ -120,13 +127,15 @@ export default class TDDlist extends Component {
                             </div>
                     </div>
                     <FilmDetail DOI={this.state.DOI} 
-                    number={this.state.number}
-                    journal_name={this.state.journal_name}
+                    status={this.state.status}
+                    source={this.state.source}
                     published_date={this.state.published_date}
-                    volume={this.state.volume}
-                    pages={this.state.pages}
+                    claim={this.state.claim}
+                    evidence={this.state.evidence}
                     title={this.state.title}
-                    author={this.state.author}></FilmDetail>
+                    types={this.state.types}
+                    author={this.state.author}>
+                    </FilmDetail>
                     <div className="searchhistory">
                                     <ul>
                                         {
@@ -138,7 +147,7 @@ export default class TDDlist extends Component {
                                                 this.setState({
                                                     list:newlist
                                                 })
-                                            }}>del</button>
+                                            }}>delete</button>
                                             </li>    
                                             )
                                         }
@@ -154,19 +163,33 @@ export default class TDDlist extends Component {
   handleInput = (event) => {
     console.log("input",event.target.value)
 
-    var newList = this.state.backarticles.filter(item=>item.title.toUpperCase().includes(event.target.value.toUpperCase())
+    var newList = this.state.backarticles.filter(item=>
+       (item.title.toUpperCase().includes(event.target.value.toUpperCase())
     || item.author.toUpperCase().includes(event.target.value.toUpperCase())
-    || item.journal_name.toUpperCase().includes(event.target.value.toUpperCase())
+    || item.source.toUpperCase().includes(event.target.value.toUpperCase())
     || item.published_date.toUpperCase().includes(event.target.value.toUpperCase())
-    || item.volume.toUpperCase().includes(event.target.value.toUpperCase())
-    || item.number.toUpperCase().includes(event.target.value.toUpperCase())
-    || item.pages.toUpperCase().includes(event.target.value.toUpperCase())
+    || item.claim.toUpperCase().includes(event.target.value.toUpperCase())
+    || item.evidence.toUpperCase().includes(event.target.value.toUpperCase())
+    || item.status.toUpperCase().includes(event.target.value.toUpperCase())
     || item.DOI.toUpperCase().includes(event.target.value.toUpperCase()))
+    && item.types.toUpperCase().includes("TDD"))
 
     /* console.log(newList) */
 
     this.setState({
         articles:newList
+    })
+  }
+
+  typeoption = (event) => {
+    console.log("input",event.target.value)
+
+    var newList2 = this.state.backarticles.filter(item=>item.types.toUpperCase().includes("TDD"))
+
+    /* console.log(newList) */
+
+    this.setState({
+        articles:newList2
     })
   }
 }
@@ -175,18 +198,19 @@ export default class TDDlist extends Component {
 
 class FilmItem extends Component{
     render(){
-        let {title,author,DOI,number,journal_name,published_date,volume,pages} = this.props
+        let {title,author,DOI,source,claim,published_date,evidence,status,types} = this.props
         return(
             <div className="articleitem" onClick={()=>{
                 // console.log(value)
-                this.props.onEvent7(title)
-                this.props.onEvent8(author)
-                this.props.onEvent(DOI)
-                this.props.onEvent2(number)
-                this.props.onEvent3(journal_name)
+                this.props.onEvent(title)
+                this.props.onEvent2(author)
+                this.props.onEvent3(source)
                 this.props.onEvent4(published_date)
-                this.props.onEvent5(volume)
-                this.props.onEvent6(pages)
+                this.props.onEvent5(claim)
+                this.props.onEvent6(evidence)
+                this.props.onEvent7(status)
+                this.props.onEvent8(DOI)
+                this.props.onEvent9(types)
             }}>
                 <dl>
                     <dt>{title}</dt>
@@ -206,18 +230,20 @@ class FilmDetail extends Component{
             {this.props.title}<br/>
             <df>author</df><br/>
             {this.props.author}<br/>
-            <df>journal_name</df><br/>
-            {this.props.journal_name}<br/>
+            <df>source</df><br/>
+            {this.props.source}<br/>
             <df>published_date</df><br/>
             {this.props.published_date}<br/>
-            <df>volume</df><br/>
-            {this.props.volume}<br/>
-            <df>number</df><br/>
-            {this.props.number}<br/>
-            <df>pages</df><br/>
-            {this.props.pages}<br/>
+            <df>claim</df><br/>
+            {this.props.claim}<br/>
+            <df>evidence</df><br/>
+            {this.props.evidence}<br/>
+            <df>status</df><br/>
+            {this.props.status}<br/>
             <df>DOI</df><br/>
-            {this.props.DOI}
+            {this.props.DOI}<br/>
+            <df>types</df><br/>
+            {this.props.types}
         </div>
     }
 }
